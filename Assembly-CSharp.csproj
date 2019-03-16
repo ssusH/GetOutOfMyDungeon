@@ -61,15 +61,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\GameMainMenu.cs" />
+    <Compile Include="Assets\Script\EquipScript\Equip.cs" />
+    <Compile Include="Assets\Script\EquipScript\EquipAttribute.cs" />
+    <Compile Include="Assets\Script\EquipScript\EquipItem.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\Script\NetWork\GameMatch.cs" />
     <Compile Include="Assets\Script\NetWork\LANGameMatch.cs" />
     <Compile Include="Assets\Script\NetWork\QuitOnlineGame.cs" />
     <Compile Include="Assets\Script\PlayerControl\CharacterController2D.cs" />
+    <Compile Include="Assets\Script\PlayerControl\PlayerEquip.cs" />
     <Compile Include="Assets\Script\PlayerControl\PlayerMovement.cs" />
     <Compile Include="Assets\Script\PlayerControl\PlayerSetup.cs" />
     <Compile Include="Assets\Script\PlayerControl\PlayerState.cs" />
+    <Compile Include="Assets\Script\UI\GameMainMenu.cs" />
     <Compile Include="Assets\Script\UI\MenuCanvas\MenuState.cs" />
     <Compile Include="Assets\Script\UI\MenuCanvas\PanelSwitch.cs" />
     <Compile Include="Assets\Script\UI\MenuCanvas\RoomListButton.cs" />

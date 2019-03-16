@@ -9,7 +9,8 @@ public class PlayerMovement : MonoBehaviour {
 
     private float moveDir_X;
     private float moveDir_Y;
-    private Vector3 mousePosition;
+    private Vector3 targetVectors;
+    private Vector2 moveVectors;
     private Animator animator;
     // Use this for initialization
     void Start() {
@@ -23,19 +24,27 @@ public class PlayerMovement : MonoBehaviour {
 
         moveDir_X = Input.GetAxisRaw("Horizontal");
         moveDir_Y = Input.GetAxisRaw("Vertical");
-        Vector2 moveVectors = new Vector2(moveDir_X, moveDir_Y);
+        moveVectors = new Vector2(moveDir_X, moveDir_Y);
+        targetVectors = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y)) - transform.position;
 
-        animator.SetFloat("speed", Mathf.Abs(moveVectors.magnitude));
-       
-        mousePosition = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y));
+        int dir = moveDir_X >= 0 ? 1 : -1;
 
-      
+        if (moveVectors.magnitude* dir * targetVectors.x>0)
+            animator.SetFloat("speed", 1f);
+        else if(moveVectors.magnitude * dir * targetVectors.x < 0)
+            animator.SetFloat("speed", 0f);
+        else
+            animator.SetFloat("speed", 0.5f);
+
+
+
+
 
     }
     private void FixedUpdate()
     {
 
-        playerMotor.Motor(new Vector2(moveDir_X, moveDir_Y), mousePosition-transform.position);
+        playerMotor.Motor(moveVectors, targetVectors);
         
 
     }
