@@ -11,6 +11,7 @@ public class PanelSwitch : MonoBehaviour {
     [SerializeField]
     private List<MenuState> HotkeyPanelList = new List<MenuState>();
 
+    [SerializeField]
     private MenuState nowPanel;
     public MenuState MainPanel;
 	// Use this for initializatio
@@ -33,29 +34,60 @@ public class PanelSwitch : MonoBehaviour {
     }
 
 
-    public void SwitchTo(MenuState panel)
+    public void SwitchTo(MenuState panel, MenuAnimationType type)
     {
-        if (nowPanel != null)
+        switch (type)
         {
-            nowPanel.menuObj.GetComponent<Animator>().Play("backPanel");
-            nowPanel.menuObj.GetComponent<Canvas>().sortingOrder = 0;
-            nowPanel.isOpen = false;
+            case MenuAnimationType.NONE:
+                if (nowPanel != null)
+                {
+                    ClosePanel(nowPanel);
+                }
+                nowPanel = panel;
+                panel.gameObject.SetActive(true);
+                nowPanel.menuObj.GetComponent<Canvas>().sortingOrder = 1;
+                nowPanel.isOpen = true;
+                break;
+            case MenuAnimationType.UPHD:
+                if (nowPanel != null)
+                {
+                    ClosePanel(nowPanel);
+                }
+                nowPanel = panel;
+                nowPanel.menuObj.GetComponent<Animator>().Play("switchPanel");
+                nowPanel.menuObj.GetComponent<Canvas>().sortingOrder = 1;
+                nowPanel.isOpen = true;
+                break;
+            default:
+                break;
+
         }
-        nowPanel = panel;
-        nowPanel.menuObj.GetComponent<Animator>().Play("switchPanel");
-        nowPanel.menuObj.GetComponent<Canvas>().sortingOrder = 1;
-        nowPanel.isOpen = true;
+
+        
 
     }
 
     public void ClosePanel(MenuState panel)
     {
-        if (nowPanel != null)
+        switch (panel.animationType)
         {
-            nowPanel.menuObj.GetComponent<Animator>().Play("backPanel");
-            nowPanel.menuObj.GetComponent<Canvas>().sortingOrder = 0;
-            nowPanel.isOpen = false;
+            case MenuAnimationType.NONE:
+                panel.gameObject.SetActive(false);
+                nowPanel.menuObj.GetComponent<Canvas>().sortingOrder = 0;
+                nowPanel.isOpen = false;
+                break;
+            case MenuAnimationType.UPHD:
+                nowPanel.menuObj.GetComponent<Animator>().Play("backPanel");
+                nowPanel.menuObj.GetComponent<Canvas>().sortingOrder = 0;
+                nowPanel.isOpen = false;
+                break;
+            default:
+                break;
+
+
         }
+        nowPanel = null;
+        
     }
 
     private void HotKeyPanel()
@@ -66,14 +98,17 @@ public class PanelSwitch : MonoBehaviour {
             {
                 if(Input.GetKeyDown(HotkeyPanelList[i].HotKey))
                 {
-                    if(!HotkeyPanelList[i].isOpen)
+                    GameManager.instance.PlayerActStop(!HotkeyPanelList[i].isOpen);
+                    if (!HotkeyPanelList[i].isOpen)
                     {
-                        SwitchTo(HotkeyPanelList[i]);
+                        SwitchTo(HotkeyPanelList[i], HotkeyPanelList[i].animationType);
+                        
                     }
                     else
                     {
                         ClosePanel(HotkeyPanelList[i]);
                     }
+
                 }
             }
         }

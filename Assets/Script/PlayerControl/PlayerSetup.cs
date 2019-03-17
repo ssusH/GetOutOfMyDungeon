@@ -36,7 +36,7 @@ public class PlayerSetup : NetworkBehaviour
     {
         base.OnStartClient();
         string _netID = GetComponent<NetworkIdentity>().netId.ToString();
-        GameManager.RegisterPlayer(_netID, GetComponent<PlayerState>());
+        //GameManager.RegisterPlayer(_netID, GetComponent<PlayerState>());
     }
     
 
@@ -53,7 +53,7 @@ public class PlayerSetup : NetworkBehaviour
             CmdGetCurrentParpentSum(-1);
         }
         CmdGetMaxParpentSum(-1);
-        GameManager.instance.RemovePlayer("Player"+ GetComponent<NetworkIdentity>().netId.ToString());
+       //GameManager.instance.RemovePlayer("Player"+ GetComponent<NetworkIdentity>().netId.ToString());
 
 
     }
@@ -66,7 +66,7 @@ public class PlayerSetup : NetworkBehaviour
 
     public void PrepareRoom()
     {
-        prepareRoom = GameObject.Find("GameManager").GetComponent<GameManager>().GetPrepareRoom();
+        //prepareRoom = GameObject.Find("GameManager").GetComponent<GameManager>().GetPrepareRoom();
         if (isLocalPlayer)
         {
             prepareRoom.localPlayer = this;

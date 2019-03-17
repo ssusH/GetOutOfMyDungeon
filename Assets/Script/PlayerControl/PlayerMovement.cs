@@ -12,6 +12,8 @@ public class PlayerMovement : MonoBehaviour {
     private Vector3 targetVectors;
     private Vector2 moveVectors;
     private Animator animator;
+
+    public bool stop { get; set; }
     // Use this for initialization
     void Start() {
         playerMotor = GetComponent<CharacterController2D>();
@@ -21,6 +23,9 @@ public class PlayerMovement : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
+        if (stop)
+            return;
 
         moveDir_X = Input.GetAxisRaw("Horizontal");
         moveDir_Y = Input.GetAxisRaw("Vertical");
@@ -36,17 +41,20 @@ public class PlayerMovement : MonoBehaviour {
         else
             animator.SetFloat("speed", 0.5f);
 
-
-
-
-
+       
     }
+    
     private void FixedUpdate()
     {
-
+        
         playerMotor.Motor(moveVectors, targetVectors);
         
 
+    }
+
+    public void setMoveVectors(Vector2 moveVectors)
+    {
+        this.moveVectors = moveVectors;
     }
 
 }

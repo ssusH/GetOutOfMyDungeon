@@ -18,7 +18,7 @@ public class Equip : MonoBehaviour {
     
     public string Name;
     public EquipType type;
-    public List<EquipAttribute> AttributesList;
+    public List<PlayerStateAttribute> EquipAttributesList;
 
 	// Use this for initialization
 	void Start () {

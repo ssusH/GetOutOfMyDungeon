@@ -54,8 +54,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: Glass
   type: 6
-  AttributesList:
-  - type: 1
+  EquipAttributesList:
+  - type: 4
     value: 10
   - type: 3
     value: 5

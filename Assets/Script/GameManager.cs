@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 
     private const string PLAYER_ID_PREFIX = "Player";
 
+    private PlayerState nowPlayer;
 
     public GameObject prepareRoomPrefab;
     private GameObject prepareRoom;
@@ -34,25 +35,35 @@ public class GameManager : MonoBehaviour {
 		
 	}
 
-    public static void RegisterPlayer(string _netID, PlayerState _player)
+    public void SetNowPlayer(PlayerState player)
     {
-        string _playerID = PLAYER_ID_PREFIX + _netID;
-        PlayerList.Add(_playerID, _player);
-        _player.transform.name = _playerID;
+        nowPlayer = player;
     }
 
-    public void RemovePlayer(string name)
+    public void PlayerActStop(bool stop)
     {
-        PlayerList.Remove(name);
+        nowPlayer.SetPlayerMoveState(stop);
     }
 
-    public PrepareRoom GetPrepareRoom()
-    {
-        if(prepareRoom == null)
-            prepareRoom = Instantiate(prepareRoomPrefab);
+    //public static void RegisterPlayer(string _netID, PlayerState _player)
+    //{
+    //    string _playerID = PLAYER_ID_PREFIX + _netID;
+    //    PlayerList.Add(_playerID, _player);
+    //    _player.transform.name = _playerID;
+    //}
 
-        return prepareRoom.GetComponent<PrepareRoom>();
-    }
+    //public void RemovePlayer(string name)
+    //{
+    //    PlayerList.Remove(name);
+    //}
+
+    //public PrepareRoom GetPrepareRoom()
+    //{
+    //    if(prepareRoom == null)
+    //        prepareRoom = Instantiate(prepareRoomPrefab);
+
+    //    return prepareRoom.GetComponent<PrepareRoom>();
+    //}
 
 
 }

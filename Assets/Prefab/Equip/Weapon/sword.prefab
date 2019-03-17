@@ -54,7 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: sword
   type: 1
-  AttributesList:
+  EquipAttributesList:
   - type: 1
     value: 10
 --- !u!212 &212853799336925572
