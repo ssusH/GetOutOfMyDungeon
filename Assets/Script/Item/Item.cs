@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public enum ItemType
@@ -16,7 +17,8 @@ public enum ItemType
  
 //}
 
-public class Item : MonoBehaviour {
+public class Item : MonoBehaviour , IPointerClickHandler
+{
 
     public string Name { get; set; }
     protected int MaxSize = 1;
@@ -34,10 +36,17 @@ public class Item : MonoBehaviour {
 		
 	}
 
-    public void UseItem(GameObject tagert)
+    public virtual void UseItem(GameObject tagert)
     {
 
     }
+
+    public virtual void RemoveItem()
+    {
+        
+    }
+
+
 
     public bool EqualsItemName(Item item)
     {
@@ -73,5 +82,10 @@ public class Item : MonoBehaviour {
     public void UpdateItemState()
     {
         transform.Find("ItemCount").GetComponent<Text>().text = CurrentSum <= 1 ? "":CurrentSum.ToString();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        UseItem(GameManager.instance.GetNowPlayer().gameObject);
     }
 }

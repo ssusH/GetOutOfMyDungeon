@@ -6,6 +6,7 @@ public class EquipItem : Item {
 
     public  GameObject ItemInstancePrefab;
     public EquipType type;
+    public bool isEquiped = false;
 	// Use this for initialization
 	void Start () {
 		
@@ -15,9 +16,30 @@ public class EquipItem : Item {
 	void Update () {
 		
 	}
-    protected void OnTriggerEnter2D(Collider2D collision)
+    
+
+    public override void  UseItem(GameObject gameObject)
     {
-        collision.GetComponent<PlayerEquip>().PutOnEquit(ItemInstancePrefab,type);
-        Destroy(gameObject);
+        if (!isEquiped)
+        {
+            gameObject.GetComponent<PlayerEquip>().PutOffEquit(type);
+            gameObject.GetComponent<PlayerEquip>().PutOnEquit(ItemInstancePrefab, type);
+        }
+        else
+        {
+            gameObject.GetComponent<PlayerEquip>().PutOffEquit(type);
+        }
+
+        isEquiped = !isEquiped;
+       
+    }
+
+    public override void RemoveItem()
+    {
+        if(isEquiped)
+        {
+            gameObject.GetComponent<PlayerEquip>().PutOffEquit(type);
+        }
+        BackpackPanel.instance.RemoveItem(this);
     }
 }

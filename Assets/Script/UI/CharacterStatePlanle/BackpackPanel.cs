@@ -7,7 +7,10 @@ public class BackpackPanel : MonoBehaviour {
     public static BackpackPanel instance;
 
     private const int BackpackSize = 12;
+
+    [SerializeField]
     private Item[] ItemList = new Item[BackpackSize] ;
+    [SerializeField]
     private Transform[] ItemSolt =  new Transform[BackpackSize];
 
     private void Awake()
@@ -28,24 +31,25 @@ public class BackpackPanel : MonoBehaviour {
 		
 	}
 
-    public bool AddItem(ref Item item)
+    public bool AddItem(GameObject item)
     {
-        
         //把没放满的道具先放满
         for(int i = 0;i<ItemList.Length;i++)
         {
             if (ItemList[i] == null)
             {//放到空位上
-                item.transform.parent = ItemSolt[i];
+                 
+                ItemList[i] = Instantiate(item, ItemSolt[i]).GetComponent<Item>();
                 return true;
-            }
-            if(ItemList[i].EqualsItemName(item))
-            {
-                ItemList[i].AddCurrentSum(ref item);
             }
         }
         return false;
     }
+    public void RemoveItem(Item item)
+    {
+        Destroy(item.gameObject);
+    }
+
 
  
 }

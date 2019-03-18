@@ -42,6 +42,7 @@ public class PlayerEquip : MonoBehaviour {
         {
             case EquipType.Weapon:
                 equip = Instantiate(EquipPrefab,WeaponSolt).GetComponent<Equip>();
+                
                 Weapon = equip;
                 //Equip(equip, WeaponSolt);
                 break;
@@ -63,6 +64,7 @@ public class PlayerEquip : MonoBehaviour {
                 break;
             case EquipType.Glass:
                 equip = Instantiate(EquipPrefab, EysSolt).GetComponent<Equip>();
+                Miscellaneous_1 = equip;
                 break;
             //case EquipType.MouthEquip:
             //    Equip(equip, MouthSolt);
@@ -71,6 +73,8 @@ public class PlayerEquip : MonoBehaviour {
                 break;
 
         }
+        //设置为同一个层 可以被监视摄像头捕获到
+        equip.gameObject.layer = transform.gameObject.layer;
         //更新角色属性值
         PlayerState.Equip(equip, true);
 
@@ -96,11 +100,8 @@ public class PlayerEquip : MonoBehaviour {
                 PlayerState.Equip(LegArmor, false);
                 UnEquip( LegArmorSolt);
                 break;
-            case EquipType.Boots:
-                PlayerState.Equip(Boots, false);
-                UnEquip( BootsSolt);
-                break;
             case EquipType.Glass:
+                PlayerState.Equip(Miscellaneous_1, false);
                 UnEquip(EysSolt);
                 break;
             //case EquipType.MouthEquip:

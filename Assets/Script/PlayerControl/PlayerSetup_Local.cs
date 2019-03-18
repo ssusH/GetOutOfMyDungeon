@@ -7,6 +7,8 @@ using UnityEngine;
 [RequireComponent(typeof(PlayerEquip))]
 public class PlayerSetup_Local : MonoBehaviour {
 
+
+
 	// Use this for initialization
 	void Start () {
         GameManager.instance.SetNowPlayer(this.GetComponent<PlayerState>());

@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviour {
     {
         nowPlayer = player;
     }
+    public PlayerState GetNowPlayer()
+    {
+        return nowPlayer;
+    }
 
     public void PlayerActStop(bool stop)
     {

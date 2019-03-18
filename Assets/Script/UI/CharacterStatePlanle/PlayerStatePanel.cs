@@ -42,22 +42,22 @@ public class PlayerStatePanel : MonoBehaviour {
             switch (att.type)
             {
                 case PlayerStateAttributeType.Attack:
-                    UpdateStateValueSolt(PlayerAttackAttributeSolt, att);
+                    SetPlayerStatePanel(PlayerAttackAttributeSolt, att);
                     break;
                 case PlayerStateAttributeType.Defense:
-                    UpdateStateValueSolt(PlayerDefenseAttributeSolt, att);
+                    SetPlayerStatePanel(PlayerDefenseAttributeSolt, att);
                     break;                  
                 case PlayerStateAttributeType.Speed:
-                    UpdateStateValueSolt(PlayerSpeedAttributeSolt, att);
+                    SetPlayerStatePanel(PlayerSpeedAttributeSolt, att);
                     break;                    
                 case PlayerStateAttributeType.MaxHealth:
-                    UpdateStateValueSolt(PlayerMaxHealthAttributeSolt, att);
+                    SetPlayerStatePanel(PlayerMaxHealthAttributeSolt, att);
                     break;
                 case PlayerStateAttributeType.MaxMana:
-                    UpdateStateValueSolt(PlayerMaxManaAttributeSolt, att);
+                    SetPlayerStatePanel(PlayerMaxManaAttributeSolt, att);
                     break;
                 case PlayerStateAttributeType.MaxWealth:
-                    UpdateStateValueSolt(PlayerMaxWealthAttributeSolt, att);
+                    SetPlayerStatePanel(PlayerMaxWealthAttributeSolt, att);
                     break;
                 default:
                     break;
@@ -65,8 +65,52 @@ public class PlayerStatePanel : MonoBehaviour {
         }
     }
 
-    private void UpdateStateValueSolt(Transform solt,PlayerStateAttribute att)
+    private void SetPlayerStatePanel(Transform solt,PlayerStateAttribute att)
     {
         solt.Find("a_value").GetComponent<Text>().text = att.value.ToString();
     }
+
+    public void UpdateEquipSolt(Equip equip,bool PutOn)
+    {
+        switch (equip.type)
+        {
+            case EquipType.Weapon:
+                SetEquipSolt(PlayerWeaponSolt, equip, PutOn);
+                break;
+            case EquipType.Helm:
+                SetEquipSolt(PlayerHelmSolt, equip, PutOn);
+                break;
+            case EquipType.ChestArmor:
+                SetEquipSolt(PlayerChestArmorSolt, equip, PutOn);
+                break;
+            case EquipType.LegArmor:
+                SetEquipSolt(PlayerLegArmorSolt, equip, PutOn);
+                break;
+            case EquipType.Boots:
+                break;
+            case EquipType.Glass:
+                SetEquipSolt(PlayerMiscellaneous_1_Solt, equip, PutOn);
+                break;
+            default:
+                break;
+
+        }
+    }
+
+    private void SetEquipSolt(Transform solt, Equip equip, bool PutOn)
+    {
+        if(PutOn)
+        {
+            solt.transform.Find("Text").gameObject.SetActive(false);
+            solt.transform.Find("Image").GetComponent<Image>().sprite = equip.gameObject.GetComponent<SpriteRenderer>().sprite;
+        }
+        else
+        {
+            solt.transform.Find("Image").GetComponent<Image>().sprite = null;
+            solt.transform.Find("Text").gameObject.SetActive(true);
+            
+        }
+    }
+
+
 }

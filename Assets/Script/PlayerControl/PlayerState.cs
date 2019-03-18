@@ -51,10 +51,21 @@ public class PlayerState : MonoBehaviour {
                 case PlayerStateAttributeType.Speed:
                     CurrentSpeed += e.value * i;
                     break;
+                case PlayerStateAttributeType.MaxHealth:
+                    MaxHealth += e.value * i;
+                    break;
+                case PlayerStateAttributeType.MaxMana:
+                    MaxMana += e.value * i;
+                    break;
+                case PlayerStateAttributeType.MaxWealth:
+                    MaxWealth += e.value * i;
+                    break;
+
                 default:
                     break;
             }
         }
+        PlayerStatePanel.instance.UpdateEquipSolt(equip,PutOn);
         PlayerStatePanel.instance.UpdatePlayerStatePanel(GetCurrentStateValue());
 
     }
